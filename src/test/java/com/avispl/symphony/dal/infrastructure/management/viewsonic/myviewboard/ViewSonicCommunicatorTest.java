@@ -26,7 +26,7 @@ class ViewSonicCommunicatorTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		this.communicator = new ViewSonicCommunicator();
-		this.communicator.setHost("");
+		this.communicator.setHost("0.0.0.0");
 		this.communicator.setPort(443);
 		this.communicator.setLogin("");
 		this.communicator.setPassword("");
@@ -43,13 +43,13 @@ class ViewSonicCommunicatorTest {
 	@Test
 	void testGetMultipleStatistics() throws Exception {
 		this.extendedStatistics = (ExtendedStatistics) this.communicator.getMultipleStatistics().get(0);
-		Map<String, String> statistics = this.extendedStatistics.getStatistics();
+		var statistics = this.extendedStatistics.getStatistics();
 
 		this.verifyStatistics(statistics);
 	}
 
 	private void verifyStatistics(Map<String, String> statistics) {
-		Map<String, Map<String, String>> groups = new LinkedHashMap<>();
+		var groups = new LinkedHashMap<String, Map<String, String>>();
 		groups.put(Constant.GENERAL_GROUP, this.filterGroupStatistics(statistics, null));
 
 		for (Map<String, String> initGroup : groups.values()) {
